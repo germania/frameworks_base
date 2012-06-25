@@ -4,6 +4,8 @@ import android.content.ContentResolver;
 import android.content.Context;
 import android.database.ContentObserver;
 import android.os.Handler;
+import android.os.IPowerManager;
+import android.os.ServiceManager;
 import android.provider.Settings;
 import android.provider.Settings.SettingNotFoundException;
 
@@ -17,12 +19,16 @@ public class BrightnessModeToggle extends Toggle {
 		-1 
 	};
 	
+	private IPowerManager mPower;
+	
 	public BrightnessModeToggle(Context context) {
 
 		super(context);
 
 		this.availableStates = BRIGHTNESS_LEVELS.length;
 
+		mPower = IPowerManager.Stub.asInterface(ServiceManager.getService("power"));
+		
 		SettingsObserver so = new SettingsObserver(new Handler());
         so.observe();
 
@@ -50,7 +56,7 @@ public class BrightnessModeToggle extends Toggle {
 	            
 // TODO this is pretty stupid
 	            
-	            int curr = -1;
+	            /* int curr = -1;
 	            
 	            for(int i=0; i<BRIGHTNESS_LEVELS.length - 1; i++) {
 	            	
@@ -62,7 +68,7 @@ public class BrightnessModeToggle extends Toggle {
 	            	
 	            }
 	            
-	            this.state = curr;
+	            this.state = curr; */
 	            
             }
             
@@ -92,7 +98,14 @@ public class BrightnessModeToggle extends Toggle {
 	                Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);
 				Settings.System.putInt(mContext.getContentResolver(),
 	                    Settings.System.SCREEN_BRIGHTNESS, level);
+				
+				mPower.setBacklightBrightness(level);
+				
 			}
+			
+		} catch(Exception e) {
+			
+			throw new RuntimeException(e);
 			
 		} finally {
 			

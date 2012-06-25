@@ -9,8 +9,13 @@ import android.provider.Settings.SettingNotFoundException;
 
 public class BrightnessModeToggle extends Toggle {
 
-	private static final int[] BRIGHTNESS_LEVELS = { 0, 90, 180, 255, -1 };
-	private int currentLevel = 0;
+	private static final int[] BRIGHTNESS_LEVELS = { 
+		android.os.Power.BRIGHTNESS_DIM, 
+		(android.os.Power.BRIGHTNESS_ON - android.os.Power.BRIGHTNESS_DIM) / 3, 
+		((android.os.Power.BRIGHTNESS_ON - android.os.Power.BRIGHTNESS_DIM) / 3) * 2, 
+		android.os.Power.BRIGHTNESS_ON,
+		-1 
+	};
 	
 	public BrightnessModeToggle(Context context) {
 
@@ -36,7 +41,7 @@ public class BrightnessModeToggle extends Toggle {
             
             if(automatic != 0) {
             	
-            	currentLevel = BRIGHTNESS_LEVELS.length - 1;
+            	this.state = BRIGHTNESS_LEVELS.length - 1;
             	
             } else {
             	
@@ -44,19 +49,21 @@ public class BrightnessModeToggle extends Toggle {
 	                Settings.System.SCREEN_BRIGHTNESS);
 	            
 // TODO this is pretty stupid
-	            int curr = tmp;
-	            for(int i=0; i<BRIGHTNESS_LEVELS.length; i++) {
+	            
+	            int curr = -1;
+	            
+	            for(int i=0; i<BRIGHTNESS_LEVELS.length - 1; i++) {
 	            	
 	            	int n = BRIGHTNESS_LEVELS[i];
 	            	
 	            	if(Math.abs(n - tmp) < curr) {
-	            		curr = n;
-	            		this.state = i;
+	            		curr = i;
 	            	}
 	            	
 	            }
 	            
-	            currentLevel = curr;
+	            this.state = curr;
+	            
             }
             
             

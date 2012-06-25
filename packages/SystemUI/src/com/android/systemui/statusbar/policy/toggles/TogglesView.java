@@ -58,6 +58,7 @@ public class TogglesView extends LinearLayout {
     private static final String TOGGLE_FCHARGE = "FCHARGE";
     private static final String TOGGLE_TETHER = "TETHER";
     private static final String TOGGLE_NFC = "NFC";
+    private static final String TOGGLE_SOUND_MODE = "SOUND_MODE";
     private int mWidgetsPerRow = 2;
 
     private boolean useAltButtonLayout = false;
@@ -130,6 +131,8 @@ public class TogglesView extends LinearLayout {
                 newToggle = new USBTetherToggle(mContext);
             else if (splitToggle.equals(TOGGLE_NFC))
                 newToggle = new NFCToggle(mContext);
+            else if (splitToggle.equals(TOGGLE_SOUND_MODE))
+            	newToggle = new SoundVibSilentToggle(mContext);
 
             if (newToggle != null)
                 toggles.add(newToggle);

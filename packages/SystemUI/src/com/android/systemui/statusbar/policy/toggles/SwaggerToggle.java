@@ -50,7 +50,7 @@ public class SwaggerToggle extends Toggle {
 
     @Override
     protected boolean onLongPress() {
-        Toast.makeText(mContext, "Swagga baby 123!", Toast.LENGTH_LONG).show();
+        Toast.makeText(mContext, "Swagga baby!", Toast.LENGTH_LONG).show();
         return true;
     }
 

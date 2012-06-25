@@ -30,7 +30,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.content.Intent;
 
-public class GpsToggle extends Toggle {
+public class GpsToggle extends BooleanToggle {
 
     public GpsToggle(Context context) {
         super(context);
@@ -71,12 +71,12 @@ public class GpsToggle extends Toggle {
         ContentResolver res = mContext.getContentResolver();
         boolean gpsEnabled = Settings.Secure.isLocationProviderEnabled(
                 res, LocationManager.GPS_PROVIDER);
-        mToggle.setChecked(gpsEnabled);
-        if (mToggle.isChecked())
+        setChecked(gpsEnabled);
+        if (isChecked())
             setIcon(R.drawable.toggle_gps);
         else
             setIcon(R.drawable.toggle_gps_off);
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

@@ -24,7 +24,7 @@ import android.net.ConnectivityManager;
 
 import com.android.systemui.R;
 
-public class NetworkToggle extends Toggle {
+public class NetworkToggle extends BooleanToggle {
 
     boolean mDataEnabled;
 
@@ -78,13 +78,13 @@ public class NetworkToggle extends Toggle {
 
     @Override
     protected boolean updateInternalToggleState() {
-        mToggle.setChecked(mDataEnabled);
-        if (mToggle.isChecked()) {
+        setChecked(mDataEnabled);
+        if (isChecked()) {
             setIcon(R.drawable.toggle_data);
         } else {
             setIcon(R.drawable.toggle_data_off);
         }
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

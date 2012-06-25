@@ -12,7 +12,7 @@ import android.provider.Settings;
 
 import com.android.systemui.R;
 
-public class NFCToggle extends Toggle {
+public class NFCToggle extends BooleanToggle {
     private static final String TAG = "StatusBar.NFCToggle";
 
     private boolean mNfcEnabled;
@@ -63,12 +63,12 @@ public class NFCToggle extends Toggle {
     @Override
     protected boolean updateInternalToggleState() {
         mNfcEnabled = getNfcState();
-        mToggle.setChecked(mNfcEnabled);
-        if (mToggle.isChecked())
+        setChecked(mNfcEnabled);
+        if (isChecked())
             setIcon(R.drawable.toggle_nfc);
         else
             setIcon(R.drawable.toggle_nfc_off);
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

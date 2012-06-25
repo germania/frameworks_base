@@ -26,7 +26,7 @@ import android.view.KeyEvent;
 
 import com.android.systemui.R;
 
-public class SyncToggle extends Toggle {
+public class SyncToggle extends BooleanToggle {
 
     private Handler mHandler = new Handler();
 
@@ -61,13 +61,13 @@ public class SyncToggle extends Toggle {
 
     @Override
     protected boolean updateInternalToggleState() {
-        mToggle.setChecked(ContentResolver.getMasterSyncAutomatically());
-        if (mToggle.isChecked()) {
+        setChecked(ContentResolver.getMasterSyncAutomatically());
+        if (isChecked()) {
             setIcon(R.drawable.toggle_sync);
         } else {
             setIcon(R.drawable.toggle_sync_off);
         }
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

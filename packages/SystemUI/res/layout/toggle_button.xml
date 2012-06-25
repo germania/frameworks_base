@@ -25,7 +25,19 @@
 			android:layout_height="wrap_content"
 			android:singleLine="true"
 			android:layout_centerInParent="true" />
+			
+			
+		<Button
+			android:layout_gravity="top"
+			android:id="@id/toggle"
+			android:layout_width="wrap_content"
+			android:layout_height="wrap_content"
+			android:textOn=""
+			android:textOff=""
+			android:layout_centerInParent="true"
+			style="@style/brucekey_icon" />
 
+<!-- 
 		<ToggleButton
 			android:layout_gravity="top"
 			android:id="@id/toggle"
@@ -35,6 +47,7 @@
 			android:textOff=""
 			android:layout_centerInParent="true"
 			style="@style/brucekey_icon" />
+ -->
 
 		<ImageView	
 			android:id="@id/icon"

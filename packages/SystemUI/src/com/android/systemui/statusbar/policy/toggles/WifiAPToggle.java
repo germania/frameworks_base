@@ -30,7 +30,7 @@ import android.view.View;
 /**
  * TODO: Listen for changes to the setting.
  */
-public class WifiAPToggle extends Toggle {
+public class WifiAPToggle extends BooleanToggle {
 
     private boolean mIsApOn;
     private int mWifiApState = WifiManager.WIFI_AP_STATE_DISABLED;
@@ -106,32 +106,32 @@ public class WifiAPToggle extends Toggle {
         switch (mWifiApState) {
             case WifiManager.WIFI_AP_STATE_ENABLED:
                 mIsApOn = true;
-                mToggle.setChecked(true);
+                setChecked(true);
                 mToggle.setEnabled(true);
                 break;
             default:
             case WifiManager.WIFI_AP_STATE_DISABLED:
                 mIsApOn = false;
-                mToggle.setChecked(false);
+                setChecked(false);
                 mToggle.setEnabled(true);
                 break;
             case WifiManager.WIFI_AP_STATE_DISABLING:
                 mIsApOn = false;
-                mToggle.setChecked(false);
+                setChecked(false);
                 mToggle.setEnabled(false);
                 break;
             case WifiManager.WIFI_AP_STATE_ENABLING:
                 mIsApOn = false;
-                mToggle.setChecked(true);
+                setChecked(true);
                 mToggle.setEnabled(false);
                 break;
         }
-        if (mToggle.isChecked()) {
+        if (isChecked()) {
             setIcon(R.drawable.toggle_wifi_ap);
         } else {
             setIcon(R.drawable.toggle_wifi_ap_off);
         }
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

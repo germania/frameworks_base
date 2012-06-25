@@ -30,7 +30,7 @@ import com.android.systemui.R;
 /**
  * TODO: Fix the WakeLock
  */
-public class TorchToggle extends Toggle implements
+public class TorchToggle extends BooleanToggle implements
         OnSharedPreferenceChangeListener {
 
     private static final String TAG = "TorchToggle";
@@ -49,7 +49,7 @@ public class TorchToggle extends Toggle implements
     public TorchToggle(Context context) {
         super(context);
         setLabel(R.string.toggle_torch);
-        if (mToggle.isChecked())
+        if (isChecked())
             setIcon(R.drawable.toggle_torch);
         else
             setIcon(R.drawable.toggle_torch_off);
@@ -63,8 +63,8 @@ public class TorchToggle extends Toggle implements
 
     @Override
     protected boolean updateInternalToggleState() {
-        mToggle.setChecked(mIsTorchOn);
-        if (mToggle.isChecked()) {
+        setChecked(mIsTorchOn);
+        if (isChecked()) {
             setIcon(R.drawable.toggle_torch);
             return true;
         } else {
@@ -99,7 +99,7 @@ public class TorchToggle extends Toggle implements
             String key) {
         mIsTorchOn = sharedPreferences.getBoolean(KEY_TORCH_ON, false);
         updateState();
-        if (mToggle.isChecked() == mIsTorchOn) {
+        if (isChecked() == mIsTorchOn) {
             mToggle.setEnabled(true); // torch status has caught up with toggle
                                       // - re-enable toggle.
         }

@@ -11,7 +11,7 @@ import android.provider.Settings;
 
 import com.android.systemui.R;
 
-public class AirplaneModeToggle extends Toggle {
+public class AirplaneModeToggle extends BooleanToggle {
     private static final String TAG = "StatusBar.AirplaneModeController";
 
     private boolean mAirplaneMode;
@@ -64,12 +64,12 @@ public class AirplaneModeToggle extends Toggle {
     @Override
     protected boolean updateInternalToggleState() {
         mAirplaneMode = getAirplaneMode();
-        mToggle.setChecked(mAirplaneMode);
-        if (mToggle.isChecked())
+        setChecked(mAirplaneMode);
+        if (isChecked())
             setIcon(R.drawable.toggle_airplane);
         else
             setIcon(R.drawable.toggle_airplane_off);
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

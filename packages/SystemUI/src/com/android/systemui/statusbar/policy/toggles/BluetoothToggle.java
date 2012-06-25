@@ -25,7 +25,7 @@ import android.util.AttributeSet;
 
 import com.android.systemui.R;
 
-public class BluetoothToggle extends Toggle {
+public class BluetoothToggle extends BooleanToggle {
 
     private int mAdapterState = BluetoothAdapter.STATE_OFF;
 
@@ -69,28 +69,28 @@ public class BluetoothToggle extends Toggle {
     protected boolean updateInternalToggleState() {
         switch (mAdapterState) {
             case BluetoothAdapter.STATE_ON:
-                mToggle.setChecked(true);
                 mToggle.setEnabled(true);
+                setChecked(true);
                 break;
             case BluetoothAdapter.STATE_TURNING_ON:
-                mToggle.setChecked(true);
                 mToggle.setEnabled(false);
+                setChecked(true);
                 break;
             case BluetoothAdapter.STATE_TURNING_OFF:
-                mToggle.setChecked(false);
                 mToggle.setEnabled(false);
+                setChecked(false);
                 break;
             default:
             case BluetoothAdapter.STATE_OFF:
-                mToggle.setChecked(false);
                 mToggle.setEnabled(true);
+                setChecked(false);
                 break;
         }
-        if (mToggle.isChecked())
+        if (isChecked())
             setIcon(R.drawable.toggle_bluetooth);
         else
             setIcon(R.drawable.toggle_bluetooth_off);
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

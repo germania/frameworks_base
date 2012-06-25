@@ -9,7 +9,7 @@ import android.media.AudioManager;
 
 import com.android.systemui.R;
 
-public class SilentToggle extends Toggle {
+public class SilentToggle extends BooleanToggle {
 
     public SilentToggle(Context context) {
         super(context);
@@ -32,14 +32,15 @@ public class SilentToggle extends Toggle {
     protected boolean updateInternalToggleState() {
         AudioManager am = (AudioManager) mContext
                 .getSystemService(Context.AUDIO_SERVICE);
-        int mode = am.getRingerMode();
-        mToggle.setChecked(mode == AudioManager.RINGER_MODE_SILENT);
-        if (mToggle.isChecked()) {
+        
+//        int mode = am.getRingerMode();
+        if (isChecked()) {
             setIcon(R.drawable.toggle_silence);
         } else {
             setIcon(R.drawable.toggle_silence_off);
         }
-        return mToggle.isChecked();
+        return isChecked();
+        
     }
 
     @Override

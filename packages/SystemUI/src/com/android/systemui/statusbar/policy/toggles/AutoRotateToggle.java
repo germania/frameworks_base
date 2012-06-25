@@ -31,7 +31,7 @@ import com.android.systemui.R;
 /**
  * TODO: Listen for changes to the setting.
  */
-public class AutoRotateToggle extends Toggle {
+public class AutoRotateToggle extends BooleanToggle {
 
     boolean mAutoRotate;
 
@@ -76,12 +76,12 @@ public class AutoRotateToggle extends Toggle {
 
     @Override
     protected boolean updateInternalToggleState() {
-        mToggle.setChecked(mAutoRotate);
-        if (mToggle.isChecked())
+    	setChecked(mAutoRotate);
+        if (isChecked())
             setIcon(R.drawable.toggle_rotate);
         else
             setIcon(R.drawable.toggle_rotate_off);
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

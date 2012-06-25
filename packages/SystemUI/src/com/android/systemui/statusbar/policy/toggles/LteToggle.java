@@ -30,7 +30,7 @@ import android.util.Log;
 import com.android.internal.telephony.Phone;
 import com.android.systemui.R;
 
-public class LteToggle extends Toggle {
+public class LteToggle extends BooleanToggle {
 
     private static final String TAG = "Toggle.Lte";
 
@@ -130,14 +130,14 @@ public class LteToggle extends Toggle {
     @Override
     protected boolean updateInternalToggleState() {
         mNetworkMode = getCurrentPreferredNetworkMode(mContext);
-        if (mToggle != null)
-            mToggle.setChecked(mNetworkMode == Phone.NT_MODE_GLOBAL);
-        if (mToggle.isChecked()) {
+        setChecked(mNetworkMode == Phone.NT_MODE_GLOBAL);
+        
+        if (isChecked()) {
             setIcon(R.drawable.toggle_lte);
         } else {
             setIcon(R.drawable.toggle_lte_off);
         }
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

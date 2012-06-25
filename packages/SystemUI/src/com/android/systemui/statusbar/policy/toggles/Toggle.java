@@ -24,9 +24,10 @@ import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.provider.Settings;
 import android.view.View;
+import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
+import android.widget.Button;
 import android.widget.CompoundButton;
-import android.widget.CompoundButton.OnCheckedChangeListener;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -36,7 +37,7 @@ import com.android.systemui.R;
 /**
  * TODO: Listen for changes to the setting.
  */
-public abstract class Toggle implements OnCheckedChangeListener {
+public abstract class Toggle implements OnClickListener {
 
     protected static final String TAG = "Toggle";
 
@@ -46,11 +47,14 @@ public abstract class Toggle implements OnCheckedChangeListener {
     // widgets
     protected ImageView mIcon;
     protected TextView mText;
-    protected CompoundButton mToggle;
+    protected Button mToggle;
 
     protected boolean mSystemChange = false;
     final boolean useAltButtonLayout;
     final int defaultColor;
+    
+    protected int state = 0;
+    protected int availableStates = 2;
 
     public Toggle(Context context) {
         mContext = context;
@@ -74,7 +78,7 @@ public abstract class Toggle implements OnCheckedChangeListener {
         mToggle = (CompoundButton) mView.findViewById(R.id.toggle);
         mText = (TextView) mView.findViewById(R.id.label);
 
-        mToggle.setOnCheckedChangeListener(this);
+        mToggle.setOnClickListener(this);
         mToggle.setOnLongClickListener(new OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
@@ -112,7 +116,7 @@ public abstract class Toggle implements OnCheckedChangeListener {
      * this method is called when the user manually toggles, update states as
      * needed
      */
-    protected abstract void onCheckChanged(boolean isChecked);
+    protected abstract void onCheckChanged();
 
     /**
      * this method is called when the user longpresses the toggle
@@ -136,11 +140,14 @@ public abstract class Toggle implements OnCheckedChangeListener {
     }
 
     @Override
-    public final void onCheckedChanged(CompoundButton buttonView,
-            boolean isChecked) {
-        if (mSystemChange)
-            return;
-        onCheckChanged(isChecked);
+    public final void onClick(View v) {
+    	
+    	if(mSystemChange)
+    		return;
+    	
+    	this.state = ++this.state % this.availableStates;
+    	this.onCheckChanged();
+    	
     }
 
     public View getView() {

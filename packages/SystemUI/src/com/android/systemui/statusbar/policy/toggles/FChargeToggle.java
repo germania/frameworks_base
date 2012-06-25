@@ -17,7 +17,7 @@ import android.util.Log;
 
 import com.android.systemui.R;
 
-public class FChargeToggle extends Toggle {
+public class FChargeToggle extends BooleanToggle {
 
     public static final String FAST_CHARGE_DIR = "/sys/kernel/fast_charge";
     public static final String FAST_CHARGE_FILE = "force_fast_charge";
@@ -34,12 +34,12 @@ public class FChargeToggle extends Toggle {
 
     @Override
     protected boolean updateInternalToggleState() {
-        mToggle.setChecked(isFastChargeOn());
-        if (mToggle.isChecked())
+    	setChecked(isFastChargeOn());
+        if (isChecked())
             setIcon(R.drawable.toggle_fcharge);
         else
             setIcon(R.drawable.toggle_fcharge_off);
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

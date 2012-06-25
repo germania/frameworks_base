@@ -30,7 +30,7 @@ import android.util.Log;
 import com.android.internal.telephony.Phone;
 import com.android.systemui.R;
 
-public class TwoGToggle extends Toggle {
+public class TwoGToggle extends BooleanToggle {
 
     private static final String TAG = "Toggle.2G";
 
@@ -125,13 +125,12 @@ public class TwoGToggle extends Toggle {
     @Override
     protected boolean updateInternalToggleState() {
         mNetworkMode = getCurrentPreferredNetworkMode(mContext);
-        if (mToggle != null)
-            mToggle.setChecked(mNetworkMode == Phone.NT_MODE_GSM_ONLY);
-        if (mToggle.isChecked())
+        setChecked(mNetworkMode == Phone.NT_MODE_GSM_ONLY);
+        if (isChecked())
             setIcon(R.drawable.toggle_2g_1);
         else
             setIcon(R.drawable.toggle_2g_1_off);
-        return mToggle.isChecked();
+        return isChecked();
     }
 
     @Override

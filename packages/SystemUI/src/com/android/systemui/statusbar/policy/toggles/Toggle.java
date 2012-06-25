@@ -75,7 +75,7 @@ public abstract class Toggle implements OnClickListener {
                 null);
 
         mIcon = (ImageView) mView.findViewById(R.id.icon);
-        mToggle = (CompoundButton) mView.findViewById(R.id.toggle);
+        mToggle = (Button) mView.findViewById(R.id.toggle);
         mText = (TextView) mView.findViewById(R.id.label);
 
         mToggle.setOnClickListener(this);

@@ -1,6 +1,7 @@
 package com.android.systemui.statusbar.policy.toggles;
 
 import android.content.Context;
+import android.util.Log;
 
 public abstract class BooleanToggle extends Toggle {
 	
@@ -19,7 +20,7 @@ public abstract class BooleanToggle extends Toggle {
 	}
 	
 	protected void setChecked(boolean checked) {
-		
+		Log.e("BooleanToggle", "BooleanToggle " + (checked ? "enabled" : "disabled"));
 	}
 	
 	protected abstract void onCheckChanged(boolean isChanged);

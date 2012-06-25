@@ -23,7 +23,7 @@ import android.widget.Toast;
 
 import com.android.systemui.R;
 
-public class SwaggerToggle extends BooleanToggle {
+public class SwaggerToggle extends Toggle {
 
     protected static final String TAG = "Swagger";
 
@@ -35,12 +35,13 @@ public class SwaggerToggle extends BooleanToggle {
     }
 
     @Override
-    protected void onCheckChanged(boolean isChecked) {
+    protected void onCheckChanged() {
+
+		if(state == 2) {
+			mContext.sendBroadcast(new Intent("LEAK_BUTT3R"));
+		}
     	
-        if (isChecked) {
-            mContext.sendBroadcast(new Intent("LEAK_BUTT3R"));
-            Log.e("SWAGGER", "CAUTION: Swagger state is now " + this.state);
-        }
+        Log.e("SWAGGER", "CAUTION: Swagger state is now " + this.state);
         
         updateState();
 
@@ -54,11 +55,11 @@ public class SwaggerToggle extends BooleanToggle {
 
     @Override
     protected boolean updateInternalToggleState() {
-        if (this.isChecked()) {
+        if (this.state == 2) {
             setIcon(R.drawable.toggle_swagger);
         } else {
             setIcon(R.drawable.toggle_swagger_off);
         }
-        return this.isChecked();
+        return this.state == 2;
     }
 }

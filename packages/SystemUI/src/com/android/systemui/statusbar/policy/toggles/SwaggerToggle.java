@@ -25,7 +25,7 @@ import com.android.systemui.R;
 
 public class SwaggerToggle extends Toggle {
 
-    private static final String TAG = "Swagger";
+    protected static final String TAG = "Swagger";
     private boolean swaggerOn;
 
     public SwaggerToggle(Context c) {
@@ -37,13 +37,16 @@ public class SwaggerToggle extends Toggle {
 
     @Override
     protected void onCheckChanged(boolean isChecked) {
-        if (isChecked) {
-            swaggerOn = true;
+    	
+    	swaggerOn = isChecked;
+    	
+        if (swaggerOn) {
             mContext.sendBroadcast(new Intent("LEAK_BUTT3R"));
             Log.e("SWAGGER", "CAUTION: Swagger has been turned on.");
         }
-        if (swaggerOn)
-            mToggle.setChecked(true);
+        
+        mToggle.setChecked(swaggerOn);
+        
         updateState();
 
     }

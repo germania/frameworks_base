@@ -121,7 +121,10 @@ public abstract class Toggle implements OnClickListener {
     /**
      * this method is called when the user longpresses the toggle
      */
-    protected abstract boolean onLongPress();
+    protected boolean onLongPress() { 
+    	/* Default implementation does nothing */
+    	return false;
+    }
 
     public void updateState() {
         mSystemChange = true;

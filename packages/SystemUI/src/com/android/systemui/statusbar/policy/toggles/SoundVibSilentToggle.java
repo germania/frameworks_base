@@ -67,22 +67,16 @@ public class SoundVibSilentToggle extends Toggle {
 	
 	private void updateIcon() {
 		switch(this.state) {
-	        case 0: 
-	        	setIcon(R.drawable.toggle_silence_off);
-	        break;
-	        case 1: 
-	        	setIcon(R.drawable.toggle_vibrate);
-	        break;
-	        case 2: 
-	        	setIcon(R.drawable.toggle_silence);
-	        break;
+			case 0: 
+				setIcon(R.drawable.toggle_silence_off);
+			break;
+			case 1: 
+				setIcon(R.drawable.toggle_vibrate);
+			break;
+			case 2: 
+				setIcon(R.drawable.toggle_silence);
+			break;
 	    }
-	}
-
-	@Override
-	protected boolean onLongPress() {
-		// TODO Auto-generated method stub
-		return false;
 	}
 
 }

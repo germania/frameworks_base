@@ -74,7 +74,6 @@ public class SoundVibSilentToggle extends Toggle {
 	        	setIcon(R.drawable.toggle_vibrate);
 	        break;
 	        case 2: 
-	        	this.state = 2; 
 	        	setIcon(R.drawable.toggle_silence);
 	        break;
 	    }

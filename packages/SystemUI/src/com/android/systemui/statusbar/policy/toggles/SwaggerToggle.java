@@ -37,11 +37,9 @@ public class SwaggerToggle extends BooleanToggle {
     @Override
     protected void onCheckChanged(boolean isChecked) {
     	
-    	Log.e("BooleanToggle", "this.state == " + this.state);
-    	
         if (isChecked) {
             mContext.sendBroadcast(new Intent("LEAK_BUTT3R"));
-            Log.e("SWAGGER", "CAUTION: Swagger has been turned on.");
+            Log.e("SWAGGER", "CAUTION: Swagger state is now " + this.state);
         }
         
         updateState();

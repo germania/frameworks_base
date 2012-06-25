@@ -29,6 +29,8 @@ public class SwaggerToggle extends Toggle {
 
     public SwaggerToggle(Context c) {
         super(c);
+        
+        this.availableStates = 3;
 
         setLabel(R.string.toggle_swagger);
         updateState();

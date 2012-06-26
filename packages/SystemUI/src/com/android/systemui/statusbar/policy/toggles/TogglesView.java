@@ -1,6 +1,7 @@
 
 package com.android.systemui.statusbar.policy.toggles;
 
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 import android.content.ContentResolver;
@@ -20,13 +21,11 @@ import com.android.systemui.R;
 import com.android.systemui.statusbar.StatusBar;
 
 public class TogglesView extends LinearLayout {
-
+	
     private static final String TAG = "ToggleView";
 
     ArrayList<LinearLayout> rows = new ArrayList<LinearLayout>();
     ArrayList<Toggle> toggles = new ArrayList<Toggle>();
-
-    private static final String TOGGLE_DELIMITER = "|";
 
     public static final int STYLE_NONE = 1;
     public static final int STYLE_ICON = 2;
@@ -41,34 +40,66 @@ public class TogglesView extends LinearLayout {
 
     private int mBrightnessLocation = BRIGHTNESS_LOC_TOP;
 
-    private static final String TOGGLE_AUTOROTATE = "ROTATE";
-    private static final String TOGGLE_BLUETOOTH = "BT";
-    private static final String TOGGLE_GPS = "GPS";
-    private static final String TOGGLE_LTE = "LTE";
-    private static final String TOGGLE_DATA = "DATA";
-    private static final String TOGGLE_WIFI = "WIFI";
-    private static final String TOGGLE_2G = "2G";
-    private static final String TOGGLE_WIFI_AP = "AP";
-    private static final String TOGGLE_AIRPLANE = "AIRPLANE_MODE";
-    private static final String TOGGLE_VIBRATE = "VIBRATE";
-    private static final String TOGGLE_SILENT = "SILENT";
-    private static final String TOGGLE_TORCH = "TORCH";
-    private static final String TOGGLE_SYNC = "SYNC";
-    private static final String TOGGLE_SWAGGER = "SWAGGER";
-    private static final String TOGGLE_FCHARGE = "FCHARGE";
-    private static final String TOGGLE_TETHER = "TETHER";
-    private static final String TOGGLE_NFC = "NFC";
-    private static final String TOGGLE_SOUND_MODE = "SOUND_MODE";
-    private static final String TOGGLE_BRIGHT_MODE = "BRIGHT_MODE";
     private int mWidgetsPerRow = 2;
 
     private boolean useAltButtonLayout = false;
 
     private StatusBar sb;
+    
+    private static final String TOGGLE_DELIMITER = "|";
+	
+	private static enum ToggleType {
+		
+		T_ROTATE(AutoRotateToggle.class),
+		T_BT(BluetoothToggle.class),
+		T_GPS(GpsToggle.class),
+		T_LTE(LteToggle.class),
+		T_DATA(NetworkToggle.class),
+		T_WIFI(WifiToggle.class),
+		T_2G(TwoGToggle.class),
+		T_AP(WifiAPToggle.class),
+		T_AIRPLANE_MODE(AirplaneModeToggle.class),
+		T_VIBRATE(VibrateToggle.class),
+		T_SILENT(SilentToggle.class),
+		T_TORCH(TorchToggle.class),
+		T_SYNC(SyncToggle.class),
+		T_SWAGGER(SwaggerToggle.class),
+		T_FCHARGE(FChargeToggle.class),
+		T_TETHER(USBTetherToggle.class),
+		T_NFC(NFCToggle.class),
+		T_SOUND_MODE(SoundVibSilentToggle.class),
+		T_BRIGHT_MODE(BrightnessModeToggle.class);
+		
+		Class<? extends Toggle> clazz;
 
-    public static final String STOCK_TOGGLES = TOGGLE_WIFI + TOGGLE_DELIMITER + TOGGLE_BLUETOOTH
-            + TOGGLE_DELIMITER + TOGGLE_GPS + TOGGLE_DELIMITER + TOGGLE_AUTOROTATE;
+		ToggleType(Class<? extends Toggle> c) {
+			this.clazz = c;
+		}
+		
+		public Class<? extends Toggle> getToggleClass() {
+			return clazz;
+		}
+		
+		public String settingsName() {
+			return this.name().substring(2);
+		}
+		
+		public static String combine(ToggleType ... types) {
+			StringBuffer result = new StringBuffer();
+			boolean first = true;
+			for(ToggleType type : types) {
+				if(!first) result.append(TOGGLE_DELIMITER);
+				result.append(type.settingsName());
+			}
+			return result.toString();
+		}
+		
+	};
 
+    public static final String STOCK_TOGGLES = ToggleType.combine(
+    	ToggleType.T_WIFI, ToggleType.T_BT, ToggleType.T_GPS, ToggleType.T_ROTATE
+	);
+    
     View mBrightnessSlider;
 
     LinearLayout mToggleSpacer;
@@ -96,49 +127,23 @@ public class TogglesView extends LinearLayout {
 
         for (String splitToggle : split) {
             Log.e(TAG, "split: " + splitToggle);
-            Toggle newToggle = null;
-
-            if (splitToggle.equals(TOGGLE_AUTOROTATE))
-                newToggle = new AutoRotateToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_BLUETOOTH))
-                newToggle = new BluetoothToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_DATA))
-                newToggle = new NetworkToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_GPS))
-                newToggle = new GpsToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_LTE))
-                newToggle = new LteToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_WIFI))
-                newToggle = new WifiToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_2G))
-                newToggle = new TwoGToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_WIFI_AP))
-                newToggle = new WifiAPToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_AIRPLANE))
-                newToggle = new AirplaneModeToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_VIBRATE))
-                newToggle = new VibrateToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_SILENT))
-                newToggle = new SilentToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_TORCH))
-                newToggle = new TorchToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_SYNC))
-                newToggle = new SyncToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_SWAGGER))
-                newToggle = new SwaggerToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_FCHARGE))
-                newToggle = new FChargeToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_TETHER))
-                newToggle = new USBTetherToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_NFC))
-                newToggle = new NFCToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_SOUND_MODE))
-            	newToggle = new SoundVibSilentToggle(mContext);
-            else if (splitToggle.equals(TOGGLE_BRIGHT_MODE))
-            	newToggle = new BrightnessModeToggle(mContext);
-
-            if (newToggle != null)
-                toggles.add(newToggle);
+            
+            ToggleType type = ToggleType.valueOf("T_" + splitToggle);
+            
+            if(type != null) {
+            	
+            	try {
+            		
+		            Class<? extends Toggle> clazz = type.getToggleClass(); 
+		            Constructor<? extends Toggle> ctor = clazz.getConstructor(Context.class);
+		            Toggle newToggle = ctor.newInstance(mContext);
+		            
+		            toggles.add(newToggle);
+		            
+            	} catch(Throwable e) {
+            		Log.e(TAG, "Error creating toggle " + splitToggle + ": " + e.getMessage());
+            	}
+            }
         }
 
     }
@@ -226,7 +231,7 @@ public class TogglesView extends LinearLayout {
 
         DisplayMetrics metrics = getContext().getResources().getDisplayMetrics();
         float dp = 2f;
-        float fpixels = metrics.density * dp;
+//        float fpixels = metrics.density * dp;
         int pixels = (int) (metrics.density * dp + 0.5f);
 
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT,

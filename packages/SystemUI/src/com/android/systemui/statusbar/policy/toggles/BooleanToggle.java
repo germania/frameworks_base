@@ -21,6 +21,7 @@ public abstract class BooleanToggle extends Toggle {
 	
 	protected void setChecked(boolean checked) {
 		Log.e("BooleanToggle", "BooleanToggle " + (checked ? "enabled" : "disabled"));
+		this.state = checked ? 1 : 0;
 	}
 	
 	protected abstract void onCheckChanged(boolean isChanged);

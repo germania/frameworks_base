@@ -60,6 +60,7 @@ public enum ToggleType {
 		for(ToggleType type : types) {
 			if(!first) result.append(TOGGLE_DELIMITER);
 			result.append(type.settingsName());
+			first = false;
 		}
 		return result.toString();
 	}

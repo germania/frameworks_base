@@ -46,56 +46,6 @@ public class TogglesView extends LinearLayout {
 
     private StatusBar sb;
     
-    private static final String TOGGLE_DELIMITER = "|";
-	
-	private static enum ToggleType {
-		
-		T_ROTATE(AutoRotateToggle.class),
-		T_BT(BluetoothToggle.class),
-		T_GPS(GpsToggle.class),
-		T_LTE(LteToggle.class),
-		T_DATA(NetworkToggle.class),
-		T_WIFI(WifiToggle.class),
-		T_2G(TwoGToggle.class),
-		T_AP(WifiAPToggle.class),
-		T_AIRPLANE_MODE(AirplaneModeToggle.class),
-		T_VIBRATE(VibrateToggle.class),
-		T_SILENT(SilentToggle.class),
-		T_TORCH(TorchToggle.class),
-		T_SYNC(SyncToggle.class),
-		T_SWAGGER(SwaggerToggle.class),
-		T_FCHARGE(FChargeToggle.class),
-		T_TETHER(USBTetherToggle.class),
-		T_NFC(NFCToggle.class),
-		T_SOUND_MODE(SoundVibSilentToggle.class),
-		T_BRIGHT_MODE(BrightnessModeToggle.class);
-		
-		Class<? extends Toggle> clazz;
-
-		ToggleType(Class<? extends Toggle> c) {
-			this.clazz = c;
-		}
-		
-		public Class<? extends Toggle> getToggleClass() {
-			return clazz;
-		}
-		
-		public String settingsName() {
-			return this.name().substring(2);
-		}
-		
-		public static String combine(ToggleType ... types) {
-			StringBuffer result = new StringBuffer();
-			boolean first = true;
-			for(ToggleType type : types) {
-				if(!first) result.append(TOGGLE_DELIMITER);
-				result.append(type.settingsName());
-			}
-			return result.toString();
-		}
-		
-	};
-
     public static final String STOCK_TOGGLES = ToggleType.combine(
     	ToggleType.T_WIFI, ToggleType.T_BT, ToggleType.T_GPS, ToggleType.T_ROTATE
 	);
@@ -122,28 +72,13 @@ public class TogglesView extends LinearLayout {
             userToggles = STOCK_TOGGLES;
 
         Log.e(TAG, userToggles);
-        String[] split = userToggles.split("\\" + TOGGLE_DELIMITER);
         toggles.clear();
 
-        for (String splitToggle : split) {
-            Log.e(TAG, "split: " + splitToggle);
-            
-            ToggleType type = ToggleType.valueOf("T_" + splitToggle);
-            
-            if(type != null) {
-            	
-            	try {
-            		
-		            Class<? extends Toggle> clazz = type.getToggleClass(); 
-		            Constructor<? extends Toggle> ctor = clazz.getConstructor(Context.class);
-		            Toggle newToggle = ctor.newInstance(mContext);
-		            
-		            toggles.add(newToggle);
-		            
-            	} catch(Throwable e) {
-            		Log.e(TAG, "Error creating toggle " + splitToggle + ": " + e.getMessage());
-            	}
-            }
+        ArrayList<ToggleType> toggleTypes = ToggleType.split(userToggles);
+
+        for (ToggleType type : toggleTypes) {
+    		Toggle newToggle = type.create(mContext);
+    		toggles.add(newToggle);
         }
 
     }

@@ -31,6 +31,7 @@ public enum ToggleType {
 	
 	private static final String TOGGLE_DELIMITER = "|";
 	private static final String TAG = "ToggleType";
+	private static final String PREFIX = "T_";
 	
 	public static final ToggleType[] STOCK_TOGGLES_ARR = 
 		{ ToggleType.T_WIFI, ToggleType.T_BT, ToggleType.T_GPS, ToggleType.T_ROTATE };
@@ -60,6 +61,10 @@ public enum ToggleType {
 		}
 	}
 	
+	public static ToggleType fromSettingName(String setting) {
+		return ToggleType.valueOf(PREFIX + setting);
+	}
+	
 	public static String combine(ToggleType ... types) {
 		StringBuffer result = new StringBuffer();
 		boolean first = true;
@@ -76,7 +81,7 @@ public enum ToggleType {
 		ArrayList<ToggleType> result = new ArrayList<ToggleType>();
 
 		for(String type : tArr) {
-			ToggleType t = ToggleType.valueOf("T_" + type);
+			ToggleType t = fromSettingName(type);
 			if(t == null) {
 				Log.e(TAG, "Skipping unknown toggle " + type);
 				continue;

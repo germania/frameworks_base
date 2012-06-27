@@ -12,7 +12,6 @@ public class SoundVibSilentToggle extends Toggle {
 
 	public SoundVibSilentToggle(Context c) {
 		super(c);
-		this.availableStates = 3;
 		
         IntentFilter filter = new IntentFilter();
         filter.addAction(AudioManager.RINGER_MODE_CHANGED_ACTION);
@@ -25,6 +24,11 @@ public class SoundVibSilentToggle extends Toggle {
             
         }, filter);
 		
+	}
+	
+	@Override
+	protected int getAvailableStates() {
+		return 3;
 	}
 
 	@Override

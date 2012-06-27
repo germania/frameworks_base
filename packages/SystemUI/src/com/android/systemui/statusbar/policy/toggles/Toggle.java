@@ -27,7 +27,6 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
-import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -54,7 +53,7 @@ public abstract class Toggle implements OnClickListener {
     final int defaultColor;
     
     protected int state = 0;
-    protected int availableStates = 2;
+    private int availableStates;
 
     public Toggle(Context context) {
         mContext = context;
@@ -69,6 +68,9 @@ public abstract class Toggle implements OnClickListener {
         Color.colorToHSV(color, hsv);
         hsv[2] *= 0.7f; // value component
         defaultColor = Color.HSVToColor(hsv);
+        
+        this.init();
+        this.availableStates = this.getAvailableStates();
 
         mView = View.inflate(mContext,
                 useAltButtonLayout ? R.layout.toggle_button : R.layout.toggle,
@@ -125,6 +127,21 @@ public abstract class Toggle implements OnClickListener {
     	/* Default implementation does nothing */
     	return false;
     }
+    
+    /**
+     * This method is called from the constructor to allow subclasses
+     * to load settings and configure themselves before being asked
+     * how many states they have
+     */
+    protected void init() {
+    	/* Default implementation does nothing */
+    }
+    
+    /**
+     * This method is called from the constructor to determine
+     * how many available states an implementation has
+     */
+    protected abstract int getAvailableStates();
 
     public void updateState() {
         mSystemChange = true;

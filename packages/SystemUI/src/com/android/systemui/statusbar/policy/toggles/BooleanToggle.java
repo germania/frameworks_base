@@ -6,12 +6,7 @@ import android.util.Log;
 public abstract class BooleanToggle extends Toggle {
 	
 	public BooleanToggle(Context c) {
-        
 		super(c);
-		
-		this.availableStates = 2;
-		this.state = 0;
-
     }
 
 	@Override
@@ -28,6 +23,10 @@ public abstract class BooleanToggle extends Toggle {
 	
 	protected boolean isChecked() {
 		return this.state == 1;
+	}
+	
+	protected final int getAvailableStates() {
+		return 2;
 	}
 
 }

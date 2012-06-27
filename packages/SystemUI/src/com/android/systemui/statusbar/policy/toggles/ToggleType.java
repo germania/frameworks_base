@@ -2,10 +2,8 @@ package com.android.systemui.statusbar.policy.toggles;
 
 import java.lang.reflect.Constructor;
 import java.util.ArrayList;
-import java.util.List;
 
 import android.content.Context;
-import android.provider.Settings;
 import android.util.Log;
 
 public enum ToggleType {
@@ -89,30 +87,6 @@ public enum ToggleType {
 			result.add(t);
 		}
 
-		return result;
-	}
-
-	public static void setPreferredToggles(Context c, List<ToggleType> types) {
-		setPreferredToggles(c, combine(types.toArray(new ToggleType[0])));
-	}
-
-	public static void setPreferredToggles(Context c, String types) {
-		Settings.System.putString(c.getContentResolver(), 
-			Settings.System.STATUSBAR_TOGGLES, types);
-	}
-
-	public static ArrayList<ToggleType> getPreferredToggles(Context c) {
-		return split(getPreferredTogglesAsString(c));
-	}
-
-	public static String getPreferredTogglesAsString(Context c) {
-		
-		String result = Settings.System.getString(c.getContentResolver(),
-            Settings.System.STATUSBAR_TOGGLES);
-		
-		if(result == null)
-			result = STOCK_TOGGLES;
-		
 		return result;
 	}
 

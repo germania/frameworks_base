@@ -25,13 +25,16 @@ public class BrightnessModeToggle extends Toggle {
 
 		super(context);
 
-		this.availableStates = BRIGHTNESS_LEVELS.length;
-
 		mPower = IPowerManager.Stub.asInterface(ServiceManager.getService("power"));
 		
 		SettingsObserver so = new SettingsObserver(new Handler());
         so.observe();
 
+	}
+	
+	@Override
+	protected int getAvailableStates() {
+		return BRIGHTNESS_LEVELS.length;
 	}
 
 	@Override
@@ -51,12 +54,14 @@ public class BrightnessModeToggle extends Toggle {
             	
             } else {
             	
+// TODO this is pretty stupid
+	            
+	            /*
+            	
 	            int tmp = Settings.System.getInt(mContext.getContentResolver(),
 	                Settings.System.SCREEN_BRIGHTNESS);
 	            
-// TODO this is pretty stupid
-	            
-	            /* int curr = -1;
+	            int curr = -1;
 	            
 	            for(int i=0; i<BRIGHTNESS_LEVELS.length - 1; i++) {
 	            	
@@ -93,6 +98,8 @@ public class BrightnessModeToggle extends Toggle {
 			if(level == -1) { //automatic
 				Settings.System.putInt(mContext.getContentResolver(),
 	                Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_AUTOMATIC);
+				
+				
 			} else {
 				Settings.System.putInt(mContext.getContentResolver(),
 	                Settings.System.SCREEN_BRIGHTNESS_MODE, Settings.System.SCREEN_BRIGHTNESS_MODE_MANUAL);

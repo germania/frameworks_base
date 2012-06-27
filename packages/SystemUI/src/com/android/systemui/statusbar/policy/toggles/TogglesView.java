@@ -1,7 +1,6 @@
 
 package com.android.systemui.statusbar.policy.toggles;
 
-import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 
 import android.content.ContentResolver;
@@ -46,10 +45,6 @@ public class TogglesView extends LinearLayout {
 
     private StatusBar sb;
     
-    public static final String STOCK_TOGGLES = ToggleType.combine(
-    	ToggleType.T_WIFI, ToggleType.T_BT, ToggleType.T_GPS, ToggleType.T_ROTATE
-	);
-    
     View mBrightnessSlider;
 
     LinearLayout mToggleSpacer;
@@ -69,7 +64,7 @@ public class TogglesView extends LinearLayout {
 
     private void addToggles(String userToggles) {
         if (userToggles == null)
-            userToggles = STOCK_TOGGLES;
+            userToggles = ToggleType.STOCK_TOGGLES;
 
         Log.e(TAG, userToggles);
         toggles.clear();

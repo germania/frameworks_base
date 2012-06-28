@@ -110,16 +110,18 @@ public abstract class Toggle implements OnClickListener {
             }
         });
         
-        updateDrawable(this.state == 1);
+        updateDrawable();
 
     }
 
-    public void updateDrawable(boolean toggle) {
+    public void updateDrawable() {
     	
     	if(this.availableStates < 3) {
 	        
     		if (!useAltButtonLayout)
 	            return;
+    		
+    		boolean toggle = this.state == 1;
 	
 	        Drawable bg = mContext.getResources().getDrawable(
 	                toggle ? R.drawable.btn_on : R.drawable.btn_off);
@@ -202,8 +204,12 @@ public abstract class Toggle implements OnClickListener {
 
     public void updateState() {
         mSystemChange = true;
-        updateDrawable(updateInternalToggleState());
-        mSystemChange = false;
+        try {
+	        updateInternalToggleState();
+	        updateDrawable();
+        } finally {
+        	mSystemChange = false;
+        }
     }
 
     public void collapseStatusBar() {

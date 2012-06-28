@@ -136,7 +136,7 @@ public class BrightnessModeToggle extends Toggle {
 
         @Override
         public void onChange(boolean selfChange) {
-            updateInternalToggleState();
+            updateState();
         }
     }
 

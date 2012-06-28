@@ -46,10 +46,12 @@ public abstract class Toggle implements OnClickListener {
     protected ImageView mIcon;
     protected TextView mText;
     protected View mToggle;
+    protected ImageView mLeft, mMid, mRight;
 
     protected boolean mSystemChange = false;
     final boolean useAltButtonLayout;
     final int defaultColor;
+    final int defaultBg;
     
     protected int state = 0;
     private int availableStates;
@@ -68,6 +70,8 @@ public abstract class Toggle implements OnClickListener {
         hsv[2] *= 0.7f; // value component
         defaultColor = Color.HSVToColor(hsv);
         
+        defaultBg = context.getResources().getColor(com.android.internal.R.color.holo_blue_dark);
+        
         this.init();
         this.availableStates = this.getAvailableStates();
 
@@ -82,6 +86,10 @@ public abstract class Toggle implements OnClickListener {
         	mView = View.inflate(mContext, 
         			useAltButtonLayout ? R.layout.toggle_button_multi : R.layout.toggle_multi, 
 					null);
+        	
+        	mLeft = (ImageView)mView.findViewById(R.id.left);
+        	mMid = (ImageView)mView.findViewById(R.id.mid);
+        	mRight = (ImageView)mView.findViewById(R.id.right);
         	
         }
         
@@ -104,16 +112,46 @@ public abstract class Toggle implements OnClickListener {
     }
 
     public void updateDrawable(boolean toggle) {
-        if (!useAltButtonLayout)
-            return;
-
-        Drawable bg = mContext.getResources().getDrawable(
-                toggle ? R.drawable.btn_on : R.drawable.btn_off);
-        if (toggle)
-            bg.setColorFilter(defaultColor, PorterDuff.Mode.SRC_ATOP);
-        else
-            bg.setColorFilter(null);
-        mToggle.setBackgroundDrawable(bg);
+    	if(this.availableStates < 3) {
+	        
+    		if (!useAltButtonLayout)
+	            return;
+	
+	        Drawable bg = mContext.getResources().getDrawable(
+	                toggle ? R.drawable.btn_on : R.drawable.btn_off);
+	        if (toggle)
+	            bg.setColorFilter(defaultColor, PorterDuff.Mode.SRC_ATOP);
+	        else
+	            bg.setColorFilter(null);
+	        mToggle.setBackgroundDrawable(bg);
+	        
+    	} else {
+    		
+//    		int maxWeight = this.availableStates - 2;
+    		
+    		if(this.state == 0) {
+    			
+    			mLeft.setColorFilter(defaultColor);
+    			mMid.setColorFilter(defaultBg);
+    			mRight.setColorFilter(defaultBg);
+    			
+    		} else
+			if(this.state == this.availableStates - 1) {
+				
+				mLeft.setColorFilter(defaultBg);
+    			mMid.setColorFilter(defaultBg);
+    			mRight.setColorFilter(defaultColor);
+				
+			} else {
+				
+				mLeft.setColorFilter(defaultBg);
+    			mMid.setColorFilter(defaultColor);
+    			mRight.setColorFilter(defaultBg);
+				
+			}
+    		
+    		
+    	}
     }
 
     /**

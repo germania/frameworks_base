@@ -109,6 +109,8 @@ public abstract class Toggle implements OnClickListener {
                     return false;
             }
         });
+        
+        updateDrawable(this.state == 1);
 
     }
 

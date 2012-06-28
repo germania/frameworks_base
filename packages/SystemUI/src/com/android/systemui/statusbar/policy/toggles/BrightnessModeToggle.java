@@ -56,8 +56,6 @@ public class BrightnessModeToggle extends Toggle {
             	
 // TODO this is pretty stupid
 	            
-	            /*
-            	
 	            int tmp = Settings.System.getInt(mContext.getContentResolver(),
 	                Settings.System.SCREEN_BRIGHTNESS);
 	            
@@ -73,7 +71,7 @@ public class BrightnessModeToggle extends Toggle {
 	            	
 	            }
 	            
-	            this.state = curr; */
+	            this.state = curr;
 	            
             }
             

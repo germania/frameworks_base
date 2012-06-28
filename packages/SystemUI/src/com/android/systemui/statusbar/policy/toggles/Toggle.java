@@ -173,7 +173,7 @@ public abstract class Toggle implements OnClickListener {
     			mMid.setLayoutParams(getParams(1f));
     			
     			mRight.setImageResource(android.R.color.background_dark);
-    			mLeft.setLayoutParams(getParams((float)weightR));
+    			mRight.setLayoutParams(getParams((float)weightR));
     			
 			}
     		
@@ -181,7 +181,7 @@ public abstract class Toggle implements OnClickListener {
     }
     
     private LinearLayout.LayoutParams getParams(float weight) {
-    	return new LinearLayout.LayoutParams(0, 20, weight);
+    	return new LinearLayout.LayoutParams(0, 25, weight);
     }
 
     /**

@@ -131,22 +131,22 @@ public abstract class Toggle implements OnClickListener {
     		
     		if(this.state == 0) {
     			
-    			mLeft.setImageResource(defaultColor);
-    			mMid.setImageResource(defaultBg);
-    			mRight.setImageResource(defaultBg);
+    			mLeft.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.OVERLAY);
+    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
+    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
     			
     		} else
 			if(this.state == this.availableStates - 1) {
 				
-				mLeft.setImageResource(defaultBg);
-    			mMid.setImageResource(defaultBg);
-    			mRight.setImageResource(defaultColor);
+				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
+    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
+    			mRight.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.OVERLAY);
 				
 			} else {
 				
-				mLeft.setImageResource(defaultBg);
-    			mMid.setImageResource(defaultColor);
-    			mRight.setImageResource(defaultBg);
+				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
+    			mMid.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.OVERLAY);
+    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
 				
 			}
     		

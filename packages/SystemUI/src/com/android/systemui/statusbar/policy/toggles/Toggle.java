@@ -26,9 +26,7 @@ import android.provider.Settings;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.internal.statusbar.IStatusBarService;
@@ -88,7 +86,7 @@ public abstract class Toggle implements OnClickListener {
         }
         
         mIcon = (ImageView) mView.findViewById(R.id.icon);
-        mToggle = (Button) mView.findViewById(R.id.toggle);
+        mToggle = mView.findViewById(R.id.toggle);
         mText = (TextView) mView.findViewById(R.id.label);
         
         mToggle.setOnClickListener(this);

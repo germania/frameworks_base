@@ -59,7 +59,7 @@ public class BrightnessModeToggle extends Toggle {
 	            int tmp = Settings.System.getInt(mContext.getContentResolver(),
 	                Settings.System.SCREEN_BRIGHTNESS);
 	            
-	            int curr = -1;
+	            int curr = BRIGHTNESS_LEVELS.length;
 	            
 	            for(int i=0; i<BRIGHTNESS_LEVELS.length - 1; i++) {
 	            	

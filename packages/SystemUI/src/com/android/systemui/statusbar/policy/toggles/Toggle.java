@@ -28,6 +28,7 @@ import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.internal.statusbar.IStatusBarService;
@@ -46,7 +47,7 @@ public abstract class Toggle implements OnClickListener {
     // widgets
     protected ImageView mIcon;
     protected TextView mText;
-    protected Button mToggle;
+    protected View mToggle;
 
     protected boolean mSystemChange = false;
     final boolean useAltButtonLayout;
@@ -72,14 +73,28 @@ public abstract class Toggle implements OnClickListener {
         this.init();
         this.availableStates = this.getAvailableStates();
 
-        mView = View.inflate(mContext,
-                useAltButtonLayout ? R.layout.toggle_button : R.layout.toggle,
-                null);
-
-        mIcon = (ImageView) mView.findViewById(R.id.icon);
-        mToggle = (Button) mView.findViewById(R.id.toggle);
-        mText = (TextView) mView.findViewById(R.id.label);
-
+        if(this.availableStates < 3) {
+        
+	        mView = View.inflate(mContext,
+	                useAltButtonLayout ? R.layout.toggle_button : R.layout.toggle,
+	                null);
+	        
+	        mIcon = (ImageView) mView.findViewById(R.id.icon);
+	        mToggle = (Button) mView.findViewById(R.id.toggle);
+	        mText = (TextView) mView.findViewById(R.id.label);
+	        
+        } else {
+        	
+        	mView = View.inflate(mContext, 
+        			useAltButtonLayout ? R.layout.toggle_button_multi : R.layout.toggle_multi, 
+					null);
+        	
+        	mIcon = (ImageView) mView.findViewById(R.id.icon);
+        	mToggle = (LinearLayout)mView.findViewById(R.id.toggle);
+        	mText = (TextView)mView.findViewById(R.id.label);
+        	
+        }
+        
         mToggle.setOnClickListener(this);
         mToggle.setOnLongClickListener(new OnLongClickListener() {
             @Override
@@ -91,6 +106,7 @@ public abstract class Toggle implements OnClickListener {
                     return false;
             }
         });
+
     }
 
     public void updateDrawable(boolean toggle) {

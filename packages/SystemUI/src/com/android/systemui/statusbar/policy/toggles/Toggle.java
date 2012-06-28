@@ -158,6 +158,7 @@ public abstract class Toggle implements OnClickListener {
     			
 			}
     		
+    		mView.invalidate();
     		
     	}
     }

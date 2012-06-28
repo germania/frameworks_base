@@ -181,7 +181,7 @@ public abstract class Toggle implements OnClickListener {
     }
     
     private LinearLayout.LayoutParams getParams(float weight) {
-    	return new LinearLayout.LayoutParams(0, 30, weight);
+    	return new LinearLayout.LayoutParams(0, 32, weight);
     }
 
     /**

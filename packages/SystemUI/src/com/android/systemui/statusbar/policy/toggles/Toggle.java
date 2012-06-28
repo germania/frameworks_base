@@ -79,21 +79,17 @@ public abstract class Toggle implements OnClickListener {
 	                useAltButtonLayout ? R.layout.toggle_button : R.layout.toggle,
 	                null);
 	        
-	        mIcon = (ImageView) mView.findViewById(R.id.icon);
-	        mToggle = (Button) mView.findViewById(R.id.toggle);
-	        mText = (TextView) mView.findViewById(R.id.label);
-	        
         } else {
         	
         	mView = View.inflate(mContext, 
         			useAltButtonLayout ? R.layout.toggle_button_multi : R.layout.toggle_multi, 
 					null);
         	
-        	mIcon = (ImageView) mView.findViewById(R.id.icon);
-        	mToggle = (LinearLayout)mView.findViewById(R.id.toggle);
-        	mText = (TextView)mView.findViewById(R.id.label);
-        	
         }
+        
+        mIcon = (ImageView) mView.findViewById(R.id.icon);
+        mToggle = (Button) mView.findViewById(R.id.toggle);
+        mText = (TextView) mView.findViewById(R.id.label);
         
         mToggle.setOnClickListener(this);
         mToggle.setOnLongClickListener(new OnLongClickListener() {

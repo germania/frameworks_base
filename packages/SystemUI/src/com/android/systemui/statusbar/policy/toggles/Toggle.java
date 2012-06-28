@@ -138,25 +138,25 @@ public abstract class Toggle implements OnClickListener {
     			Log.e(TAG, "Left");
     			
     			mLeft.setImageResource(android.R.color.holo_blue_light);
-    			mMid.setImageResource(android.R.color.darker_gray);
-    			mRight.setImageResource(android.R.color.darker_gray);
+    			mMid.setImageResource(android.R.color.background_dark);
+    			mRight.setImageResource(android.R.color.background_dark);
     			
     		} else
 			if(this.state == this.availableStates - 1) {
 				
 				Log.e(TAG, "Right");
 				
-				mLeft.setImageResource(android.R.color.darker_gray);
-    			mMid.setImageResource(android.R.color.darker_gray);
+				mLeft.setImageResource(android.R.color.background_dark);
+    			mMid.setImageResource(android.R.color.background_dark);
     			mRight.setImageResource(android.R.color.holo_blue_light);
 				
 			} else {
 				
 				Log.e(TAG, "Middle");
 				
-				mLeft.setImageResource(android.R.color.darker_gray);
+				mLeft.setImageResource(android.R.color.background_dark);
     			mMid.setImageResource(android.R.color.holo_blue_light);
-    			mRight.setImageResource(android.R.color.darker_gray);
+    			mRight.setImageResource(android.R.color.background_dark);
     			
 			}
     		

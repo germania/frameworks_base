@@ -135,30 +135,28 @@ public abstract class Toggle implements OnClickListener {
     			
     			Log.e(TAG, "Left");
     			
-    			mLeft.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.SRC_ATOP);
-    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.SRC_ATOP);
-    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.SRC_ATOP);
+    			mLeft.setImageResource(android.R.color.holo_blue_light);
+    			mMid.setImageResource(android.R.color.darker_gray);
+    			mRight.setImageResource(android.R.color.darker_gray);
     			
     		} else
 			if(this.state == this.availableStates - 1) {
 				
 				Log.e(TAG, "Right");
 				
-				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.SRC_ATOP);
-    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.SRC_ATOP);
-    			mRight.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.SRC_ATOP);
+				mLeft.setImageResource(android.R.color.darker_gray);
+    			mMid.setImageResource(android.R.color.darker_gray);
+    			mRight.setImageResource(android.R.color.holo_blue_light);
 				
 			} else {
 				
 				Log.e(TAG, "Middle");
 				
-				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.SRC_ATOP);
-    			mMid.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.SRC_ATOP);
-    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.SRC_ATOP);
+				mLeft.setImageResource(android.R.color.darker_gray);
+    			mMid.setImageResource(android.R.color.holo_blue_light);
+    			mRight.setImageResource(android.R.color.darker_gray);
     			
 			}
-    		
-    		mView.invalidate();
     		
     	}
     }

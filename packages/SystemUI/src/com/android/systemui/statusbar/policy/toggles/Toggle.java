@@ -23,6 +23,7 @@ import android.graphics.drawable.Drawable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.provider.Settings;
+import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -112,6 +113,7 @@ public abstract class Toggle implements OnClickListener {
     }
 
     public void updateDrawable(boolean toggle) {
+    	
     	if(this.availableStates < 3) {
 	        
     		if (!useAltButtonLayout)
@@ -131,23 +133,29 @@ public abstract class Toggle implements OnClickListener {
     		
     		if(this.state == 0) {
     			
-    			mLeft.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.OVERLAY);
-    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
-    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
+    			Log.e(TAG, "Left");
+    			
+    			mLeft.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.MULTIPLY);
+    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.MULTIPLY);
     			
     		} else
 			if(this.state == this.availableStates - 1) {
 				
-				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
-    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
-    			mRight.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.OVERLAY);
+				Log.e(TAG, "Right");
+				
+				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.MULTIPLY);
+    			mMid.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.MULTIPLY);
+    			mRight.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.MULTIPLY);
 				
 			} else {
 				
-				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
-    			mMid.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.OVERLAY);
-    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.OVERLAY);
+				Log.e(TAG, "Middle");
 				
+				mLeft.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.MULTIPLY);
+    			mMid.setColorFilter(defaultColor, android.graphics.PorterDuff.Mode.MULTIPLY);
+    			mRight.setColorFilter(defaultBg, android.graphics.PorterDuff.Mode.MULTIPLY);
+    			
 			}
     		
     		

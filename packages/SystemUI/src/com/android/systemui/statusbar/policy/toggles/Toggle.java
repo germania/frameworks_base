@@ -135,9 +135,9 @@ public abstract class Toggle implements OnClickListener {
     		
 //    		int maxWeight = this.availableStates - 2;
     		
+    		Log.e(TAG, "State is now " + state);
+    		
     		if(this.state == 0) {
-    			
-    			Log.e(TAG, "Left");
     			
     			mLeft.setImageResource(android.R.color.holo_blue_light);
     			mMid.setImageResource(android.R.color.background_dark);
@@ -146,15 +146,11 @@ public abstract class Toggle implements OnClickListener {
     		} else
 			if(this.state == this.availableStates - 1) {
 				
-				Log.e(TAG, "Right");
-				
 				mLeft.setImageResource(android.R.color.background_dark);
     			mMid.setImageResource(android.R.color.background_dark);
     			mRight.setImageResource(android.R.color.holo_blue_light);
 				
 			} else {
-				
-				Log.e(TAG, "Middle");
 				
 				mLeft.setImageResource(android.R.color.background_dark);
     			mMid.setImageResource(android.R.color.holo_blue_light);

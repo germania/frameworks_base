@@ -164,7 +164,7 @@ public abstract class Toggle implements OnClickListener {
 			} else {
 				
 				int weightL = this.state;
-				int weightR = this.availableStates - this.state;
+				int weightR = this.availableStates - (this.state + 1);
 				
 				mLeft.setImageResource(android.R.color.background_dark);
 				mLeft.setLayoutParams(getParams((float)weightL));

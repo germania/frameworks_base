@@ -28,6 +28,7 @@ import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.android.internal.statusbar.IStatusBarService;
@@ -132,33 +133,55 @@ public abstract class Toggle implements OnClickListener {
 	        mToggle.setBackgroundDrawable(bg);
 	        
     	} else {
-    		
-//    		int maxWeight = this.availableStates - 2;
-    		
+
     		Log.e(TAG, "State is now " + state);
+    		
+    		int maxWeight = this.availableStates - 2;
     		
     		if(this.state == 0) {
     			
     			mLeft.setImageResource(android.R.color.holo_blue_light);
+    			mLeft.setLayoutParams(getParams(1f));
+    			
     			mMid.setImageResource(android.R.color.background_dark);
+    			mMid.setLayoutParams(getParams((float)maxWeight));
+    			
     			mRight.setImageResource(android.R.color.background_dark);
+    			mRight.setLayoutParams(getParams(1f));
     			
     		} else
 			if(this.state == this.availableStates - 1) {
 				
 				mLeft.setImageResource(android.R.color.background_dark);
+				mLeft.setLayoutParams(getParams(1f));
+				
     			mMid.setImageResource(android.R.color.background_dark);
+    			mMid.setLayoutParams(getParams((float)maxWeight));
+    			
     			mRight.setImageResource(android.R.color.holo_blue_light);
+    			mRight.setLayoutParams(getParams(1f));
 				
 			} else {
 				
+				int weightL = this.state;
+				int weightR = this.availableStates - this.state;
+				
 				mLeft.setImageResource(android.R.color.background_dark);
+				mLeft.setLayoutParams(getParams((float)weightL));
+				
     			mMid.setImageResource(android.R.color.holo_blue_light);
+    			mMid.setLayoutParams(getParams(1f));
+    			
     			mRight.setImageResource(android.R.color.background_dark);
+    			mLeft.setLayoutParams(getParams((float)weightR));
     			
 			}
     		
     	}
+    }
+    
+    private LinearLayout.LayoutParams getParams(float weight) {
+    	return new LinearLayout.LayoutParams(0, 20, weight);
     }
 
     /**

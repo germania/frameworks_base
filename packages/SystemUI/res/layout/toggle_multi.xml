@@ -28,8 +28,8 @@
 
 		<LinearLayout
 			android:id="@+id/toggle"
-			android:layout_width="30dp"
-			android:layout_height="5dp"
+			android:layout_width="100dp"
+			android:layout_height="30dp"
 			android:layout_gravity="right"
 			android:layout_alignParentRight="true"
 			android:layout_marginRight="5dp"
@@ -39,8 +39,8 @@
             android:id="@+id/left"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="#0000ff" 
-            android:layout_weight="2"/>
+            android:src="#ff0000" 
+            android:layout_weight="1"/>
         
         <ImageView 
             android:id="@+id/mid"
@@ -53,7 +53,7 @@
             android:id="@+id/right"
             android:layout_width="0dp"
             android:layout_height="match_parent"
-            android:src="#ff0000"
+            android:src="#0000ff"
             android:layout_weight="1"/>
 			
 		</LinearLayout>

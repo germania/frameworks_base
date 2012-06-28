@@ -131,22 +131,22 @@ public abstract class Toggle implements OnClickListener {
     		
     		if(this.state == 0) {
     			
-    			mLeft.setColorFilter(defaultColor);
-    			mMid.setColorFilter(defaultBg);
-    			mRight.setColorFilter(defaultBg);
+    			mLeft.setImageResource(defaultColor);
+    			mMid.setImageResource(defaultBg);
+    			mRight.setImageResource(defaultBg);
     			
     		} else
 			if(this.state == this.availableStates - 1) {
 				
-				mLeft.setColorFilter(defaultBg);
-    			mMid.setColorFilter(defaultBg);
-    			mRight.setColorFilter(defaultColor);
+				mLeft.setImageResource(defaultBg);
+    			mMid.setImageResource(defaultBg);
+    			mRight.setImageResource(defaultColor);
 				
 			} else {
 				
-				mLeft.setColorFilter(defaultBg);
-    			mMid.setColorFilter(defaultColor);
-    			mRight.setColorFilter(defaultBg);
+				mLeft.setImageResource(defaultBg);
+    			mMid.setImageResource(defaultColor);
+    			mRight.setImageResource(defaultBg);
 				
 			}
     		

@@ -60,13 +60,15 @@ public class BrightnessModeToggle extends Toggle {
 	                Settings.System.SCREEN_BRIGHTNESS);
 	            
 	            int curr = BRIGHTNESS_LEVELS.length;
+	            int min = android.os.Power.BRIGHTNESS_ON;
 	            
 	            for(int i=0; i<BRIGHTNESS_LEVELS.length - 1; i++) {
 	            	
 	            	int n = BRIGHTNESS_LEVELS[i];
 	            	
-	            	if(Math.abs(n - tmp) < curr) {
+	            	if(Math.abs(n - tmp) < min) {
 	            		curr = i;
+	            		min = Math.abs(n - tmp);
 	            	}
 	            	
 	            }

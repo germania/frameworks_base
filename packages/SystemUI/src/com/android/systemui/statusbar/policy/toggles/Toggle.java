@@ -23,7 +23,6 @@ import android.graphics.drawable.Drawable;
 import android.os.RemoteException;
 import android.os.ServiceManager;
 import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.view.View.OnLongClickListener;
@@ -134,7 +133,7 @@ public abstract class Toggle implements OnClickListener {
 	        
     	} else {
 
-    		Log.e(TAG, "State is now " + state);
+//    		Log.e(TAG, "State is now " + state);
     		
     		int maxWeight = this.availableStates - 2;
     		
